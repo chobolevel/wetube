@@ -1,0 +1,21 @@
+{
+  "name": "wetube",
+  "version": "1.0.0",
+  "description": "The best way to watch videos.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chobolevel/wetube.git"
+  },
+  "scripts": {
+    "win": "node index.js"
+  },
+  "author": "kang In Jae",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chobolevel/wetube/issues"
+  },
+  "homepage": "https://github.com/chobolevel/wetube#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
