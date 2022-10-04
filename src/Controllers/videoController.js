@@ -2,6 +2,7 @@ const fakeUser = {
   username : "Nicolas",
   loggedIn : false,
 }
+//로그인 로그아웃 매뉴 conditional위해 만든 가짜유저
 
 export const trending = (req, res) => res.render("home", {pageTitle : "Home", fakeUser, });
 export const see = (req, res) => res.render("watch");
