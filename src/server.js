@@ -1,26 +1,25 @@
 import express from "express";
 import morgan from "morgan";
+import globalRouter from "./routers/globalRouter";
+import videoRouter from "./routers/videoRouter";
+import userRouter from "./routers/userRouter";
 
 const PORT = 4000;
 
+console.log(process.cwd());
+
 const app = express();
-//서버 생성과 같음
-//서버 응답에 대해 코딩할 때 서버 생성 코드 이후로 코딩을 해야함
-//------------------------------(샌드위치 처럼 사용함)
 const logger = morgan("dev");
-const handleHome = (req, res) => {
-  console.log("I wiil respond.");
-  return res.send("hello");
-}
-const login = (req, res) => {
-  return res.send("login");
-}
 
+app.set("view engine", "pug");
+//html대신 pug사용한다고 server에 알림
+app.set("views", process.cwd() + "/src/views");
+//경로 설정
 app.use(logger);
-app.get("/", handleHome);
-app.get("/login", login);
+app.use("/videos", videoRouter);
+app.use("/users", userRouter);
+app.use("/", globalRouter);
 
-//-------------------------------
 const handleListening = () => console.log(`Server listening on port http://localhost:${PORT}`);
 
 app.listen(PORT, handleListening);
