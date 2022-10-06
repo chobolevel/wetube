@@ -1,3 +1,4 @@
+import "./db";
 import express from "express";
 import morgan from "morgan";
 import globalRouter from "./routers/globalRouter";
@@ -13,6 +14,7 @@ app.set("view engine", "pug");
 app.set("views", process.cwd() + "/src/views");
 //경로 설정(기존 경로 사용하려면 src에서 views폴더 빼내야함)
 app.use(logger);
+app.use(express.urlencoded({extended:true}))
 app.use("/videos", videoRouter);
 app.use("/users", userRouter);
 app.use("/", globalRouter);
