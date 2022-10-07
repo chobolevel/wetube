@@ -23,16 +23,19 @@ export const getUpload = (req, res) => {
 }
 export const  postUpload = async (req, res) => {
   const { title, description, hashtags } = req.body;
+ try {
   await Video.create ({
     title,
     description,
     createdAt : Date.now(),
     hashtags : hashtags.split(",").map(word => `#${word}`),
-    meta : {
-      views : 0,
-      rating : 0,
-    }
   });
-  //create함수를 사용하면 자동으로 저장도 해줌
   return res.redirect("/");
+ } catch (error) {
+  return res.render("upload", {
+    pageTitle : "Upload Video",
+    errorMessage : error._message
+  });
+  //DB저장에 오류가 발생했을 때 오류 메세지를 upload페이지로 보냄
+ }
 }
