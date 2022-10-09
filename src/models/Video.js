@@ -10,10 +10,11 @@ const videoSchema = new mongoose.Schema({
     rating : {type : Number, default : 0, required : true},
   },
 });
-//미들웨어(save이벤트)
-videoSchema.pre("save", async function () {
-  this.hashtags = this.hashtags[0].split(",").map(word => word.startsWith("#") ? word : `#${word}`);
-})
+
+videoSchema.static("formatHashtags", function (hashtags) {
+  return hashtags.split(",").map(word => word.startsWith("#") ? word : `#${word}`);
+});
+//Video모델에서 formatHashtags()로 접근가능한 메서드를 만들어줌
 
 const Video = mongoose.model("video", videoSchema);
 
