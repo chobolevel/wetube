@@ -1,12 +1,10 @@
-import "./db";
-import "./models/Video";
-import "./models/User";
-//여기서 순서 중요한듯 DB먼저 연결하고 그 다름 Model연결
 import express from "express";
 import morgan from "morgan";
+import session from "express-session";
 import rootRouter from "./routers/rootRouter";
 import videoRouter from "./routers/videoRouter";
 import userRouter from "./routers/userRouter";
+import { localsMiddleware } from "./middlewares";
 
 const app = express();
 const logger = morgan("dev");
@@ -16,6 +14,15 @@ app.set("views", process.cwd() + "/src/views");
 app.use(logger);
 app.use(express.urlencoded({extended:true}))
 //form에서 전송하는 데이터 인식하기 위한 설정
+
+app.use(
+  session({
+    secret: "Hello",
+    resave: true,
+    saveUninitialized: true,
+}));
+
+app.use(localsMiddleware);
 app.use("/videos", videoRouter);
 app.use("/users", userRouter);
 app.use("/", rootRouter);
