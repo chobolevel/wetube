@@ -40,8 +40,12 @@ export const postJoin = async (req, res) => {
   }
   return res.redirect("/login");
 }
-export const edit = (req, res) => {
-  res.send("Edit User");
+//프로필 수정 컨트롤러
+export const getEdit = (req, res) => {
+  return res.render("edit-profile", { pageTitle: "Edit Profile" });
+}
+export const postEdit = (req, res) => {
+  return res.render("edit-profile");
 }
 //Login
 export const getLogin = (req, res) => {
@@ -108,6 +112,7 @@ export const finishGithubLogin = async (req, res) => {
   if ("access_token" in tokenRequest) {
     const { access_token } = tokenRequest;
     const apiUrl = "https://api.github.com";
+    //API로부터 정보 받아옴
     const userData = await
       (await fetch(`${apiUrl}/user`, {
         headers: {
@@ -128,7 +133,7 @@ export const finishGithubLogin = async (req, res) => {
     //해당 이메일로 이미 계정이 있으면 로그인 하도록 만듦
     let user = await User.findOne({ email: emailObj.email });
     if (!user) {
-      //여기는 Github이메일로 생성된 아이디가 없는 경우
+      //여기는 Github이메일로 생성된 아이디가 없는 경우 새로운 계정을 생성함 비밀번호가 없는 아이디로
       user = await User.create({
         name: userData.name,
         avatarUrl : userData.avatar_url,
