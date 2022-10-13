@@ -44,8 +44,29 @@ export const postJoin = async (req, res) => {
 export const getEdit = (req, res) => {
   return res.render("edit-profile", { pageTitle: "Edit Profile" });
 }
-export const postEdit = (req, res) => {
-  return res.render("edit-profile");
+export const postEdit = async (req, res) => {
+  const {
+    session: {
+      user: { _id },
+    },
+    body: { name, email, username, location },
+  } = req;
+  //위처럼 작성하면 req로부터 다양하게 받을 수 있음
+  const findUsername = await User.findOne({ username });
+  const findUserEmail = await User.findOne({ email });
+  //중복되는 객체를 가져온 후 생성 아이디를 비교하여 다를 경우에만 오류를 전송함
+  if(findUsername._id !== _id && findUserEmail._id !== _id) {
+    return res
+      .status(400)
+      .render("edit-profile", {
+        errorMessage : "This email or Username is already taken.",
+      })
+  }
+  const updatedUser = await User.findByIdAndUpdate(_id, {
+    name, email, username, location
+  }, { new : true });
+  req.session.user = updatedUser;
+  return res.redirect("/users/edit");
 }
 //Login
 export const getLogin = (req, res) => {

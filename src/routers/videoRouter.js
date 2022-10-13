@@ -1,5 +1,6 @@
 import express from "express";
 import { watch, getEdit, postEdit, getUpload, postUpload, deleteVideo } from "../Controllers/videoController"
+import { protectorMiddleware } from "../middlewares";
 
 const videoRouter = express.Router();
 
@@ -7,8 +8,8 @@ const videoRouter = express.Router();
 //예)/videos/upload -> watch Video #/upload
 //정규식을 이용해서 숫자만 받아오기 때문에 upload는 밑으로 가도 ok
 videoRouter.route("/:id([0-9a-f]{24})").get(watch);
-videoRouter.route("/:id([0-9a-f]{24})/edit").get(getEdit).post(postEdit);
-videoRouter.route("/:id([0-9a-f]{24})/delete").get(deleteVideo);
-videoRouter.route("/upload").get(getUpload).post(postUpload);
+videoRouter.route("/:id([0-9a-f]{24})/edit").all(protectorMiddleware).get(getEdit).post(postEdit);
+videoRouter.route("/:id([0-9a-f]{24})/delete").all(protectorMiddleware).get(deleteVideo);
+videoRouter.route("/upload").all(protectorMiddleware).get(getUpload).post(postUpload);
 
 export default videoRouter;
