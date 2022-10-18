@@ -18,6 +18,6 @@ videoSchema.static("formatHashtags", function (hashtags) {
 });
 //Video모델에서 formatHashtags()로 접근가능한 메서드를 만들어줌
 
-const Video = mongoose.model("video", videoSchema);
+const Video = mongoose.model("Video", videoSchema);
 
 export default Video;

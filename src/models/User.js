@@ -9,11 +9,17 @@ const userSchema = new mongoose.Schema({
   password: { type: String },
   name: { type: String, required: true },
   location: String,
+  videos: [
+    { type: mongoose.Schema.Types.ObjectId, ref: "Video" }
+  ],
 });
 
 //저장하기 전에 비밀번호를 5번 해싱
 userSchema.pre("save", async function () {
-  this.password = await bcrypt.hash(this.password, 5);
+  if (this.isModified("password")) {
+    this.password = await bcrypt.hash(this.password, 5);
+  }
+  //위 조건문은 비밀번호가 변경된 경우에만 해싱을 하도록함
 });
 
 const User = mongoose.model("User", userSchema);
