@@ -4,7 +4,7 @@ import User from "../models/User";
 //Home
 export const home = async (req, res) => {
   //조건 없이 찾아서 모든 영상을 보여줌
-  const videos = await Video.find({}).sort({ createdAt: "desc" });
+  const videos = await Video.find({}).sort({ createdAt: "desc" }).populate("owner");
   return res.render("home", { pageTitle: "Home", videos });
 };
 //watch video
@@ -106,7 +106,7 @@ export const search = async (req, res) => {
         $regex: new RegExp(keyword, "i"),
         //키워드가 포함된 모든 검색결과 가져옴
       },
-    });
+    }).populate("owner");
   }
   return res.render("search", { pageTitle: "Search", videos });
 }

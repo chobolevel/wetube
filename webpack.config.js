@@ -9,6 +9,7 @@ module.exports = {
     filename: "css/styles.css",
   })],
   output: {
+    //확장자 js파일은 모두 아래 처리를 따름
     filename: "js/main.js",
     path: path.resolve(__dirname, "assets"),
     clean: true, //시작하기 전에 폴더를 깨끗하게 비우는 옵션
