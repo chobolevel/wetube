@@ -30,6 +30,8 @@ app.use(
 
 app.use(localsMiddleware);
 app.use("/uploads", express.static("uploads"));
+app.use("/static", express.static("assets"));
+//static에는 폴더명을 정확하게 사용하지만 경로는 원하는 이름 작성 가능함
 app.use("/videos", videoRouter);
 app.use("/users", userRouter);
 app.use("/", rootRouter);
