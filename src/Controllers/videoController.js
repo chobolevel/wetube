@@ -109,4 +109,15 @@ export const search = async (req, res) => {
     }).populate("owner");
   }
   return res.render("search", { pageTitle: "Search", videos });
-}
+};
+export const registerView = async (req, res) => {
+  //조회수를 올리는 API(API는 템플릿을 렌더링하지 않음)
+  const { id } = req.params;
+  const video = await Video.findById(id);
+  if (!video) {
+    return res.sendStatus(404);
+  }
+  video.meta.views += 1;
+  await video.save();
+  return res.sendStatus(200);
+};

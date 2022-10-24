@@ -5,6 +5,7 @@ import MongoStore from "connect-mongo";
 import rootRouter from "./routers/rootRouter";
 import videoRouter from "./routers/videoRouter";
 import userRouter from "./routers/userRouter";
+import apiRouter from "./routers/apiRouter";
 import { localsMiddleware } from "./middlewares";
 
 const app = express();
@@ -32,9 +33,10 @@ app.use(localsMiddleware);
 app.use("/uploads", express.static("uploads"));
 app.use("/static", express.static("assets"));
 //static에는 폴더명을 정확하게 사용하지만 경로는 원하는 이름 작성 가능함
+app.use("/", rootRouter);
 app.use("/videos", videoRouter);
 app.use("/users", userRouter);
-app.use("/", rootRouter);
+app.use("/api", apiRouter);
 
 export default app;
 //express에서는 생성하고 cofiguration관련 코드만 처리해주도록 만들 것임
