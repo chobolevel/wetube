@@ -106,8 +106,8 @@ export const postLogin = async (req, res) => {
 }
 //로그아웃 컨트롤러
 export const logout = (req, res) => {
-  req.session.destroy();
   req.flash("info", "Bye Bye");
+  req.session.destroy();
   return res.redirect("/");
 }
 //깃허브를 이요한 로그인 컨트롤러
