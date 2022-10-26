@@ -26,6 +26,7 @@ export const getEdit = async (req, res) => {
     return res.status(404).render("404", { pageTitle: "Video not found" })
   }
   if (String(video.owner) !== String(_id)) {
+    req.flash("error", "You are not the owner of the video.");
     //비디오 작성자와 현재 로그인한 유저의 아이디 일치하지 않는 경우 홈화면으로 이동
     return res.status(403).redirect("/");
   }
@@ -56,12 +57,14 @@ export const getUpload = (req, res) => {
 }
 export const postUpload = async (req, res) => {
   const { user: { _id } } = req.session;
-  const { path: fileUrl } = req.file;
+  const { video, thumb } = req.files;
+  //각자 배열로 전달이 됨(하나에 여러개의 파일을 받을 수 있기 때문)
   const { title, description, hashtags } = req.body;
   try {
     const newVideo = await Video.create({
       title,
-      fileUrl,
+      fileUrl: video[0].path,
+      thumbUrl: thumb[0].path.replace(/[\\]/g, "/"),
       description,
       createdAt: Date.now(),
       owner: _id,

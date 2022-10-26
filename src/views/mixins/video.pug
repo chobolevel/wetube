@@ -1,6 +1,6 @@
 mixin video(video)
   a(href=`/videos/${video.id}`).video_mixin
-    div.video_mixin_thumb
+    div.video_mixin_thumb(style=`background-image:url(/${video.thumbUrl});background-size:cover;background-position:center;`)
     div.video_mixin_data
       span.video_mixin_title=video.title
       div.video_mixin_meta

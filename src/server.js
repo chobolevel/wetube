@@ -1,6 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 import session from "express-session";
+import flash from "express-flash";
 import MongoStore from "connect-mongo";
 import rootRouter from "./routers/rootRouter";
 import videoRouter from "./routers/videoRouter";
@@ -24,11 +25,11 @@ app.use(
     resave: false,
     saveUninitialized: false,
     //밑에 작성을 통해 session ID등을 mongodb에 저장하게 됨
-    store: MongoStore.create({
-      mongoUrl: process.env.DB_URL,
-    })
-  }));
+    store: MongoStore.create({ mongoUrl: process.env.DB_URL }),
+  })
+);
 
+app.use(flash());
 app.use(localsMiddleware);
 app.use("/uploads", express.static("uploads"));
 app.use("/static", express.static("assets"));

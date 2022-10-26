@@ -1,0 +1,17 @@
+.upload_container {
+  width: 100%;
+
+  .upload_video {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    video {
+      max-width: 100%;
+      margin-bottom: 10px;
+      border: 1px solid #777;
+      border-radius: 10px;
+    }
+  }
+}

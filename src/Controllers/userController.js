@@ -107,6 +107,7 @@ export const postLogin = async (req, res) => {
 //로그아웃 컨트롤러
 export const logout = (req, res) => {
   req.session.destroy();
+  req.flash("info", "Bye Bye");
   return res.redirect("/");
 }
 //깃허브를 이요한 로그인 컨트롤러
@@ -184,6 +185,7 @@ export const finishGithubLogin = async (req, res) => {
 }
 export const getChangePassword = (req, res) => {
   if (req.session.user.socialOnly === true) {
+    req.flash("error", "Can't change password.");
     return res.redirect("/");
     //깃허브 로그인의 경우 비밀번호가 존재하지 않으므로 비밀번호 변경하지 못하도록 차단
   }
@@ -216,6 +218,7 @@ export const postChangePassword = async (req, res) => {
   }
   user.password = newPassword;
   await user.save();
+  req.flash("info", "Password Updated");
   //이렇게 해야 비밀번호 해시를 사용할 수 있음
   return res.redirect("/users/logout");
   //비밀번호 변경후 다시 로그인하도록 함
