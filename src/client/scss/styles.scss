@@ -19,6 +19,7 @@
 @import "./screens/profile.scss";
 @import "./screens/edit-profile.scss";
 @import "./screens/upload.scss";
+@import "./screens/watch.scss";
 
 //Defaults
 
@@ -68,5 +69,15 @@ main {
   &.error {
     background-color: tomato;
     color: white;
+  }
+
+  &.success {
+    background-color: greenyellow;
+    color: white;
+  }
+
+  &.info {
+    background-color: ivory;
+    color: #222;
   }
 }

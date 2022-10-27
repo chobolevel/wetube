@@ -15,7 +15,8 @@ const logger = morgan("dev");
 app.set("view engine", "pug");
 app.set("views", process.cwd() + "/src/views");
 app.use(logger);
-app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json()); //api로 보내는 text인식하기 위함
 //form에서 전송하는 데이터 인식하기 위한 설정
 
 //express-session사용

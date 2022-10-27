@@ -19,15 +19,31 @@ block content
             div
                 span#fullScreen
                     i.fas.fa-expand
-                    div 
-    p=video.description
-    small=video.createdAt
-    div 
-        small Uploaded By 
-        a(href=`/users/${video.owner._id}`) #{video.owner.name}
-    if video.owner.id === loggedInUser._id
-        a(href=`${video.id}/edit`) Edit Video &rarr;
-        br
-        a(href=`${video.id}/delete`) Delete Video &rarr;
+    div.video_data
+        p.video_title=video.title
+        small.video_owner Uploaded by 
+            a(href=`/users/${video.owner._id}`)=video.owner.name
+        small.video_createdAt=new Date(video.createdAt).toLocaleDateString("ko-kr", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})
+        if String(video.owner.id) === String(loggedInUser._id) 
+            a(href=`${video.id}/edit`).modifyLink Edit Video &rarr;
+            br
+            a(href=`${video.id}/delete`).modifyLink Delete Video &rarr;
+        
+        if loggedIn
+            div.video_add-comments
+                form.video_comment-form#commentForm
+                    textarea(cols="100", rows="5", placeholder="Write a nice comment...")
+                    button Add Comment
+        div.video_comments
+            h2 [Comments]
+            ul
+                each comment in video.comments.reverse()
+                    li.video_comment(data-id=comment._id)
+                        i.fas.fa-comment
+                        span  #{comment.text}
+                        span#remover ❌
+
 block scripts
-  script(src="/static/js/videoPlayer.js") 
+  script(src="/static/js/videoPlayer.js")
+  if loggedIn
+    script(src="/static/js/commentSection.js")
