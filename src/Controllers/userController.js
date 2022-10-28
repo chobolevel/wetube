@@ -53,7 +53,6 @@ export const postEdit = async (req, res) => {
     body: { name, email, username, location },
     file,
   } = req;
-  file ? console.log(file.path) : null;
   //위처럼 작성하면 req로부터 다양하게 받을 수 있음
   const findUsername = await User.findOne({ username });
   const findUserEmail = await User.findOne({ email });
@@ -67,7 +66,7 @@ export const postEdit = async (req, res) => {
       })
   }
   const updatedUser = await User.findByIdAndUpdate(_id, {
-    avatarUrl: file ? file.path : avatarUrl,
+    avatarUrl: file ? file.location : avatarUrl,
     name,
     email,
     username,

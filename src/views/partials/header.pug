@@ -19,10 +19,11 @@ header
             if loggedInUser === ""
               span 😀
             else 
-              if loggedInUser.avatarUrl.includes("github")
-                img(src=loggedInUser.avatarUrl).header_avatar
-              else
-                img(src="/" + loggedInUser.avatarUrl).header_avatar
+              if loggedInUser.avatarUrl
+                if loggedInUser.avatarUrl.includes("github")
+                  img(src=loggedInUser.avatarUrl).header_avatar
+                else
+                  img(src="/" + loggedInUser.avatarUrl).header_avatar
       else 
         li 
           a(href="/login") Login

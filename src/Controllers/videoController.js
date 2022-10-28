@@ -66,8 +66,8 @@ export const postUpload = async (req, res) => {
   try {
     const newVideo = await Video.create({
       title,
-      fileUrl: video[0].path,
-      thumbUrl: thumb[0].path.replace(/[\\]/g, "/"),
+      fileUrl: video[0].location.replace(/[\\]/g, "/"),
+      thumbUrl: thumb[0].location.replace(/[\\]/g, "/"),
       description,
       createdAt: Date.now(),
       owner: _id,
