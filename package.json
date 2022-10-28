@@ -1,6 +1,9 @@
 {
   "name": "wetube",
   "version": "1.0.0",
+  "engines": {
+    "node": "16.17.1"
+  },
   "description": "The best way to watch videos.",
   "repository": {
     "type": "git",
