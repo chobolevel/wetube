@@ -1,6 +1,7 @@
 const videoContainer = document.getElementById("videoContainer");
 const form = document.getElementById("commentForm");
 const commentList = document.querySelectorAll(".video_comments ul li");
+const commentCount = document.getElementById("comment_count");
 
 const removeElement = async (event) => {
   const parent = event.target.parentElement;
@@ -10,6 +11,7 @@ const removeElement = async (event) => {
     method: "DELETE",
   })
   parent.remove();
+  commentCount.innerText = Number(commentCount.innerText) - 1;
 }
 
 const addComment = (text, newCommentId) => {
@@ -28,6 +30,7 @@ const addComment = (text, newCommentId) => {
   newComment.appendChild(span2);
   newComment.dataset.id = newCommentId;
   videoComments.prepend(newComment);
+  commentCount.innerText = Number(commentCount.innerText) + 1;
 };
 
 const handleSubmit = async (event) => {

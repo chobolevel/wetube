@@ -36,6 +36,8 @@ block content
                     button Add Comment
         div.video_comments
             h2 [Comments]
+                span#comment_count  #{video.comments.length}
+                span 개
             ul
                 each comment in video.comments.reverse()
                     li.video_comment(data-id=comment._id)

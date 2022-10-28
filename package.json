@@ -7,8 +7,12 @@
     "url": "git+https://github.com/chobolevel/wetube.git"
   },
   "scripts": {
+    "start": "node build/init.js",
+    "build": "npm run build:server && npm run build:assets",
+    "build:server": "babel src -d build",
+    "build:assets": "webpack --mode=production",
     "dev:server": "nodemon",
-    "dev:assets": "webpack"
+    "dev:assets": "webpack --mode=development -w"
   },
   "author": "kang In Jae",
   "license": "MIT",
@@ -35,7 +39,8 @@
     "webpack-cli": "^4.10.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.19.3",
+    "@babel/cli": "^7.19.3",
+    "@babel/core": "^7.19.6",
     "@babel/node": "^7.19.1",
     "@babel/preset-env": "^7.19.3",
     "css-loader": "^6.7.1",
